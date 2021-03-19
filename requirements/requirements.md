@@ -12,14 +12,16 @@ A list of things that **must** be supported.
    * Inner structure of student folders unknown.
    * RAM files / multiple deep RAM files within subfolder must be automatically detected.
  * Configuration of a template file. All ids featured in the template files must be excluded from analysis.
+   * Note: Could also be an upper-bound filter of findins (omits ids that are present in EVERY submission). Potenitally dangerous, because students could remove parts of template.
 
 Required information in output:
 
  * For every identifier (that is not in template AND in has at least findings for two students)
-   * Identifier information: Class / Operation etc...
+   * ~~Identifier information: Class / Operation etc...~~ Could vary.
    * Per Student match:
      * Name / ID of student
      * File with finding
+     * Full tag with finding
 
 Alternatively / Additionally
 

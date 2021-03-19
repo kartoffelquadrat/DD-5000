@@ -30,3 +30,43 @@
 A sample UI, to help identify required functionality
 
 ![sampleui](sampleui.jpg)
+
+## Pseudo code
+
+Takeaways:
+
+ * Creates per student a plagiarism map
+   * Key: ecore IDs shared with at least another student
+   * Value: List of students with that id collision
+ * Prints these details for any student with non empty lists.
+
+```
+parse configuration
+  set input folder
+  set template location
+treat template
+  import, parse template
+  extract blacklist ecore ids from template
+initialize empty global ecore id map
+treat input folder
+  for every direct subfolder S of input folder:
+    find all ram files
+    for ever ram file R in ram files
+       import, parse ram file
+       extract all ecore ids that not blacklisted
+       add name of S to key (ecore id) in global ecore id map (ignore if S already present)
+    done
+  done
+organize findings
+  for every ecore identifier in global map
+    if more than one student
+      for every student
+        add details to plagiarism map of student  
+      done
+    fi
+  done
+  for all students
+    if collision counter not empty
+      print student details
+      print collision details: collision map size, collision details: ID-> colliding students.
+```
