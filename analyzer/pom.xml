@@ -78,7 +78,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>eu.kartoffelquadrat.bookstoreinternals.HeadlessLauncher</mainClass>
+                    <mainClass>eu.kartoffelquadrat.duplicatedetector.HeadlessLauncher</mainClass>
                 </configuration>
             </plugin>
 
@@ -90,7 +90,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>eu.kartoffelquadrat.bookstoreinternals.HeadlessLauncher</mainClass>
+                            <mainClass>eu.kartoffelquadrat.duplicatedetector.HeadlessLauncher</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
