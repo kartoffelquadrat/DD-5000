@@ -26,9 +26,15 @@ The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) i
    * Any ID of the sample files will be ignored. (Blacklisted)
    * All non-blacklisted IDs of the output folder will be considered.
 
-### Build
+#### Build
 
-### Run
+```mvn clean package```
+
+#### Run
+
+```mvn exec:java```
+
+
 
 ### Options
 
