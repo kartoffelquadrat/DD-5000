@@ -1,0 +1,7 @@
+layout.css:
+	img[src*="#figure"] {
+	  width:65%;
+	  display: block;
+	  margin-left: auto;
+	  margin-right: auto;
+	}

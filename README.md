@@ -11,7 +11,7 @@ The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) i
 ### Data preparation
 
  * Get the mycourses submissions. (A folder with all zipped submissions) + an index html file.
- * Run the preparation script (creates one folder per student, named as student name+id)  
+ * Run the [preparation script](dataprep.sh) (creates one folder per student, named as student name+id)  
 ```bash
 ./dataprep.sh source-folder target-folder
 ```
@@ -20,6 +20,11 @@ The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) i
    * Removes all hidden files / OS meta files
    * Creates an index text file with the relative pathes to all RAM files: ```_ramfiles.txt```
 
+### Data analysis
+
+ * Run the java programm, that imports the script output folder and a folder with the sample files.
+   * Any ID of the sample files will be ignored. (Blacklisted)
+   * All non-blacklisted IDs of the output folder will be considered.
 
 ### Build
 
