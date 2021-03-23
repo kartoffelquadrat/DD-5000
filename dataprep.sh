@@ -15,11 +15,6 @@ if [ ! -d "$1" ];then
 	exit -1
 fi
 
-if [ ! -d "$2" ];then
-	echo "Parameter 2 does not specify a directory."
-	exit -1
-fi
-
 # Where the master folder with the zips from mycourses lies
 SOURCEDIR=$1
 
