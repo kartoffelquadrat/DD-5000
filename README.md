@@ -3,7 +3,7 @@
 Ecore ID duplicate detection made easy.
 
 ![version](https://img.shields.io/badge/version-1.0-brightgreen)
-![coverage](https://img.shields.io/badge/coverage-95%00-brightgreen)
+![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
 ![building](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## About
