@@ -2,6 +2,10 @@
 
 Ecore ID duplicate detection made easy.
 
+![version](https://img.shields.io/badge/version-1.0-brightgreen)
+![coverage](https://img.shields.io/badge/coverage-95%00-brightgreen)
+![building](https://img.shields.io/badge/build-passing-brightgreen)
+
 ## About
 
 The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) is a software that analyzes model sets created with [TouchCORE](http://touchcore.cs.mcgill.ca/) and searches duplicate ecore identifiers.  
