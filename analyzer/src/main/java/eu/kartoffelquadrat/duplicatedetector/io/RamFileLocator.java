@@ -1,10 +1,14 @@
 package eu.kartoffelquadrat.duplicatedetector.io;
 
 import eu.kartoffelquadrat.duplicatedetector.HeadlessLauncher;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.util.Collection;
 
 /**
  * Util class for convenient location of RAM files.
@@ -21,18 +25,20 @@ public class RamFileLocator {
      * @param basedir as the directory to search. (Must exist, must not be an actual file.)
      * @return an array of file objects, listing all ram files found in a deep search of the given directory.
      */
-    public static File[] locateDeepRamFiles(File basedir) {
+    public static Collection<File> locateDeepRamFiles(File basedir) {
 
         // verify the basedir exists
-        if(!basedir.exists())
+        if (!basedir.exists())
             throw new RuntimeException("Can not search what does not exist.");
 
         // verify the basedir is actually a directory
-        if(!basedir.isDirectory())
+        if (!basedir.isDirectory())
             throw new RuntimeException("Can not deep search a non-directory.");
 
-        logger.info("Running deep search for RAM files on "+basedir.getAbsolutePath());
+        logger.info("Running deep search for RAM files on " + basedir.getAbsolutePath());
 
-        return basedir.listFiles(new RamFileFilter());
+        return FileUtils.listFiles(basedir, new RegexFileFilter("^.*\\.ram$"),
+                DirectoryFileFilter.DIRECTORY
+        );
     }
 }

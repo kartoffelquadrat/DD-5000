@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import sun.awt.image.ImageWatched;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -21,28 +22,40 @@ public class EcoreExtractor {
 
     /**
      * Based on all provided RAM files, builds a per student set of ecore identifiers used ( + their contexts).
-     * @param blacklistedEcoreIdentifiers as set of Ecore Identifiers that were provided by template are should be excluded from analysis.
-     * @param submissionBaseDir as the main directory with all student subfolders.
+     *
+     * @param blacklistedEcoreIdentifiers as set of Ecore Identifiers that were provided by template are should be
+     *                                    excluded from analysis.
+     * @param submissionBaseDir           as the main directory with all student subfolders.
      */
-    public static void buildStudentBundles(Set<String> blacklistedEcoreIdentifiers, File submissionBaseDir)
-    {
+    public static void buildStudentBundles(Set<String> blacklistedEcoreIdentifiers, File submissionBaseDir) {
         // Obtain location of submission directory per student.
         Map<String, File> studentSubmissions = StudentDirectoryLocator.getSubmissionDirectories(submissionBaseDir);
 
+        // Prepare filter set for blank students (have no RAM files) in submission
+        Set<String> blankStudents = new LinkedHashSet<>();
+
         // For every student, extract all used ecore identifiers:
-        for(String student : studentSubmissions.keySet())
-        {
+        for (String student : studentSubmissions.keySet()) {
+            logger.info("Indexing files for " + student);
+
             // Prepare result set for all ecore identifiers
             Set<String> ecoreIdentifiers = new LinkedHashSet<>();
 
             // Locate all ram files submitted by student:
-            File[] ramFiles = RamFileLocator.locateDeepRamFiles(studentSubmissions.get(student));
-            for(int f = 0; f < ramFiles.length; f++)
-            {
-                logger.info("Indexing ecore identifiers of "+ramFiles[f].getAbsolutePath());
-                ecoreIdentifiers.addAll(extractEcoreIdentifiers(ramFiles[f]));
+            Collection<File> ramFiles = RamFileLocator.locateDeepRamFiles(studentSubmissions.get(student));
+            for (File ramFile : ramFiles) {
+                ecoreIdentifiers.addAll(extractEcoreIdentifiers(ramFile));
             }
+
+            // If no files found for student, stage for filtering
+            if (ramFiles.isEmpty())
+                blankStudents.add(student);
         }
+
+        // Remove all blank students
+        studentSubmissions.keySet().removeAll(blankStudents);
+
+        logger.info("Imported ecore identifiers of " + studentSubmissions.keySet().size() + " students. " + blankStudents.size() + " students did not provide ram files and can not be analyzed.");
     }
 
     /**
