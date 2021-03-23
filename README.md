@@ -4,28 +4,48 @@ Ecore ID duplicate detection made easy.
 
 ## About
 
-The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) is a software that analyzes models created with [TouchCORE](http://touchcore.cs.mcgill.ca/) and searches recurrent ecore identifiers. Ecore identifiers are commonly generated randomly. Therefore, potential results allow for an easy detection of plagiarisms. The *DD-5000* operates on a single input directory and presents findings in an intuitive format.
+The *Duplicate Detector [5000](https://youtu.be/UKygju476tM?t=18)* (*DD-5000*) is a software that analyzes model sets created with [TouchCORE](http://touchcore.cs.mcgill.ca/) and searches duplicate ecore identifiers.  
+In TouchCORE models, ecore identifiers are generated randomly. Therefore, collisions accross multiple models suggest plagiarism.  
+The *DD-5000* operates on two input directories (one for templates to blacklist from duplicate search and one for model submissions). The findings are presented textually.
+
+Sample output:  
+```
+List of collisions: (template IDs filtered)
+_MRBUl4vZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_MRBUmYvZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_MRBUmovZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_MQ7N8IvZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_H1C4gIvZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_LS-_AovZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+_MQ7N8YvZEeuyz5hrMJJE7Q: [Richard Roe | John Doe]
+...
+```
 
 ## Usage
 
 ### Data Preparation
 
-In a first step the studnet submissions must be brought into a certain format:
+Input models must be brought into a certain format. This is taken care of by the [data preparation script](dataprep.sh).
 
- * Get the mycourses submissions. (A folder with all zipped submissions) + an index html file.
- * Run the [preparation script](dataprep.sh) (creates one folder per student, named as student name+id)  
+Instructions:
+
+ * Download the zipped mycourses submissions. (A single folder, containing all zipped submissions) + an index html file.
+ * Run the [preparation script](dataprep.sh). (This creates one folder per student, named by the *student first name **space** student last name*: 
 ```bash
 ./dataprep.sh source-folder target-folder
 ```  
-This:
-   * Creates a master folder, named like ```target-folder```
-   * Creates one subfolder per student name
-   * Removes all hidden files / OS meta files
+   * ```source-folder```: The location of th mycourses download folder, containing all student submissions as zip files. E.g. ```/tmp/mycourses```
+   * ```target-folder```: The location where unzipped, cleaned, named students submissions shall be stored. E.g. ```/tmp/clean-finals```
 
 
-### Compile / Run Analyzer
+ > **Note**: This script also removes meta / bloat files not needed for a subsequent duplicate analysis.
 
-Now you can run the DD-5000 java program. It searches fore ecore identifier collisions in student submissions and prints them to screen.
+### Compiling / Running the Analyzer
+
+Once the input data is cleaned, you can run the DD-5000 java program. It searches for ecore identifier collisions in student submissions and prints the findings to screen.  
+The java code is located in the [analyzer](analyzer) directory.
+
+Build / usage instructions:
 
  * Make sure JDK-11 or higher is installed.
  * Place the sample files for the mandatory unit tests at the right location: 
