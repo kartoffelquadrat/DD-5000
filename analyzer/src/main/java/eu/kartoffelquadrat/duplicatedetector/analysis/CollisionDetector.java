@@ -49,21 +49,28 @@ public class CollisionDetector {
 
     /**
      * Helper method to turn the collision map into a string representation, one ecore identifier per line. Lists all
-     * studends indexed for that ecore identfier.
+     * studends indexed for that ecore identfier. Automatically omits entries with less than two entries.
      *
      * @param collisionMap as the map to be consumed.
      * @return a string representation of the input collision map.
      */
     private static String buildCollisionMapTextualRepresentation(Map<String, Set<String>> collisionMap) {
 
-        StringBuilder sb = new StringBuilder("");
+        boolean empty = true;
+
+        StringBuilder sb = new StringBuilder("List of collisions: (template IDs filtered)");
         for (String ecoreIdentifier : collisionMap.keySet()) {
-            sb.append(ecoreIdentifier).append(": [");
-            for (String student : collisionMap.get(ecoreIdentifier)) {
-                sb.append(student).append(" | ");
+            if (collisionMap.get(ecoreIdentifier).size() >= 2) {
+                empty = false;
+                sb.append(ecoreIdentifier).append(": [");
+                for (String student : collisionMap.get(ecoreIdentifier)) {
+                    sb.append(student).append(" | ");
+                }
+                sb.append("]\n");
             }
-            sb.append("]\n");
         }
+        if(empty)
+            sb.append("\n---none---");
         return sb.toString();
     }
 

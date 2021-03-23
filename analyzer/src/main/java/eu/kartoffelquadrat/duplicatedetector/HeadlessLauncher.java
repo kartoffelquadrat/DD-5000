@@ -2,6 +2,7 @@ package eu.kartoffelquadrat.duplicatedetector;
 
 import eu.kartoffelquadrat.duplicatedetector.analysis.CollisionDetector;
 import eu.kartoffelquadrat.duplicatedetector.io.StudentBundleBuilder;
+import eu.kartoffelquadrat.duplicatedetector.io.TemplateBlacklistBuilder;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -29,13 +30,13 @@ public class HeadlessLauncher {
         validateArgumentLocations(args);
 
         // Extract blacklisted ecore IDs (all IDs in RAM files within template folder)
-        Set<String> blacklistEcoreIdentifiers = null; //ToDo implement.
+        Set<String> blacklistEcoreIdentifiers = TemplateBlacklistBuilder.extractBlacklistedEcoreIdentifiersFromTemplateFolder(templateFolder);
 
         // Extract analyzer input dataset (Per student: set of all used ecore identifiers.)
-        Map<String, Set<String>> ecoreIdentfiersPerStudent = StudentBundleBuilder.buildStudentBundles(blacklistEcoreIdentifiers, submissionFolder);
+        Map<String, Set<String>> ecoreIdentifiersPerStudent = StudentBundleBuilder.buildStudentBundles(blacklistEcoreIdentifiers, submissionFolder);
 
         // Search for collisions
-        CollisionDetector.indexByEcoreIdentifierOccurrence(ecoreIdentfiersPerStudent);
+        CollisionDetector.indexByEcoreIdentifierOccurrence(ecoreIdentifiersPerStudent);
     }
 
     /**
@@ -46,7 +47,7 @@ public class HeadlessLauncher {
         // Verify amount of arguments.
         if (args.length != 2)
             throw new RuntimeException("Expected exactly two runtime arguments:\n1) Path to template folder.\n2) Path to submission folder created by data preparation script.");
-        logger.info("Correct mount of runtime arguments provided.");
+        logger.info("Correct amount of runtime arguments provided.");
 
         // Verify specified locations exist
         templateFolder = new File(args[0]);

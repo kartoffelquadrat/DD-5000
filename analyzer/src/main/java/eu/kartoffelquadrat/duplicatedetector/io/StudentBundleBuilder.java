@@ -42,7 +42,10 @@ public class StudentBundleBuilder {
                 ecoreIdentifiers.addAll(RamFileTokenExtractor.extractEcoreIdentifiers(ramFile));
             }
 
-            // If at least one ecore id found, stage student for further analysis
+            // Remove all balcklisted ecore identifiers
+            ecoreIdentifiers.removeAll(blacklistedEcoreIdentifiers);
+
+            // If at least one ecore id remains, stage student for further analysis
             if (!ecoreIdentifiers.isEmpty()) {
                 ecoreIdentifiersByStudent.put(student, ecoreIdentifiers);
             }
