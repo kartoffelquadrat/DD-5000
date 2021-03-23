@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/DD-5000.iml" filepath="$PROJECT_DIR$/.idea/DD-5000.iml" />
+      <module fileurl="file://$PROJECT_DIR$/analyzer/duplicatedetector.iml" filepath="$PROJECT_DIR$/analyzer/duplicatedetector.iml" />
+    </modules>
+  </component>
+</project>

@@ -27,21 +27,23 @@ public class CollisionDetector {
      */
     public static Map<String, Set<String>> indexByEcoreIdentifierOccurrence(Map<String, Set<String>> ecoreIdentifiersPerStudent) {
 
-        Map<String, Set<String>> collisionMap = new LinkedHashMap<>();
+        Map<String, Set<String>> allEcoreIdenfierMap = new LinkedHashMap<>();
 
         // Iterate over input map. Use every entry as key in the target map. Use every kay as value for that key in target map.
         for (String student : ecoreIdentifiersPerStudent.keySet()) {
             // feed all ecore listings of that student to hashmap as new entries.
             for (String ecoreIdentifier : ecoreIdentifiersPerStudent.get(student)) {
                 // if ecore identifier not yet indexed: initialize a new entry with target set.
-                if (!collisionMap.containsKey(ecoreIdentifier))
-                    collisionMap.put(ecoreIdentifier, new LinkedHashSet<>());
+                if (!allEcoreIdenfierMap.containsKey(ecoreIdentifier))
+                    allEcoreIdenfierMap.put(ecoreIdentifier, new LinkedHashSet<>());
 
                 // In any case add the student-id to the entry of the ecore identifier
-                collisionMap.get(ecoreIdentifier).add(student);
+                allEcoreIdenfierMap.get(ecoreIdentifier).add(student);
             }
         }
 
+        // Shrink map to only ecore identifier entries with more actual user collisions.
+        Map<String, Set<String>> collisionMap = filterCollisions(allEcoreIdenfierMap);
         logger.info("Converted student bundles into a collision map.");
         System.out.println(buildCollisionMapTextualRepresentation(collisionMap));
         return collisionMap;
@@ -56,22 +58,38 @@ public class CollisionDetector {
      */
     private static String buildCollisionMapTextualRepresentation(Map<String, Set<String>> collisionMap) {
 
-        boolean empty = true;
-
-        StringBuilder sb = new StringBuilder("List of collisions: (template IDs filtered)");
-        for (String ecoreIdentifier : collisionMap.keySet()) {
-            if (collisionMap.get(ecoreIdentifier).size() >= 2) {
-                empty = false;
+        StringBuilder sb = new StringBuilder("List of collisions: (template IDs filtered)\n");
+        if (collisionMap.isEmpty())
+            sb.append("\n---none---");
+        else {
+            for (String ecoreIdentifier : collisionMap.keySet()) {
                 sb.append(ecoreIdentifier).append(": [");
                 for (String student : collisionMap.get(ecoreIdentifier)) {
-                    sb.append(student).append(" | ");
+                    sb.append(" ").append(student).append(" |");
                 }
                 sb.append("]\n");
             }
         }
-        if(empty)
-            sb.append("\n---none---");
+
         return sb.toString();
+    }
+
+    /**
+     * Helper method that reduces the provided list of all indexed ecore identifier occurrences to only entries with
+     * user collisions.
+     *
+     * @return a true collision map of ecore identifiers.
+     */
+    private static Map<String, Set<String>> filterCollisions(Map<String, Set<String>> ecoreMap) {
+
+        Map<String, Set<String>> collisionMap = new LinkedHashMap<>();
+
+        for (Map.Entry<String, Set<String>> entry : ecoreMap.entrySet()) {
+            if (entry.getValue().size() >= 2) {
+                collisionMap.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return collisionMap;
     }
 
 }

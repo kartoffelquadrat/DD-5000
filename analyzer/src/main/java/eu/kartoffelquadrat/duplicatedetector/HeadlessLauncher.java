@@ -23,6 +23,7 @@ public class HeadlessLauncher {
 
     /**
      * Main entry point for the headless (console) launcher of the DD-5000.
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -33,6 +34,19 @@ public class HeadlessLauncher {
         // Ensure the arguments represent existing directories
         validateArgumentLocations(args);
 
+        // Run the actual search for duplicated, based on the validated input directories.
+        analyze(templateFolder, submissionFolder);
+    }
+
+    /**
+     * Main analyzer control function.
+     *
+     * @param templateFolder   the validated template directory.
+     * @param submissionFolder the validated submission directory.
+     * @return collisionsMap indexing for every ecore identifier with more than one student occurrence the names of
+     * colliding students.
+     */
+    public static Map<String, Set<String>> analyze(File templateFolder, File submissionFolder) {
         // Extract blacklisted ecore IDs (all IDs in RAM files within template folder)
         Set<String> blacklistEcoreIdentifiers = TemplateBlacklistBuilder.extractBlacklistedEcoreIdentifiersFromTemplateFolder(templateFolder);
 
@@ -40,13 +54,13 @@ public class HeadlessLauncher {
         Map<String, Set<String>> ecoreIdentifiersPerStudent = StudentBundleBuilder.buildStudentBundles(blacklistEcoreIdentifiers, submissionFolder);
 
         // Search for collisions
-        CollisionDetector.indexByEcoreIdentifierOccurrence(ecoreIdentifiersPerStudent);
+        return CollisionDetector.indexByEcoreIdentifierOccurrence(ecoreIdentifiersPerStudent);
     }
 
     /**
      * Verifies the correct amount of inputs is present and that they specify valid file system paths.
      */
-    private static void validateArgumentLocations(String[] args) {
+    public static void validateArgumentLocations(String[] args) {
 
         // Verify amount of arguments.
         if (args.length != 2)
