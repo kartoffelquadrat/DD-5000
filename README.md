@@ -5,6 +5,10 @@ Ecore ID duplicate detection made easy.
 ![version](https://img.shields.io/badge/version-1.0-brightgreen)
 ![coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
 ![building](https://img.shields.io/badge/build-passing-brightgreen)
+![junit](https://img.shields.io/badge/JUnit-4.10-blue)
+![log4j](https://img.shields.io/badge/Log4J-1.2.17-blue)
+![commons](https://img.shields.io/badge/CommonsIO-2.8.0-blue)
+
 
 ## About
 
