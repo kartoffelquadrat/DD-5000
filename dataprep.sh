@@ -1,10 +1,30 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+	echo "Source directory location required as paramter 2."
+	exit -1
+fi
+
+if [ -z "$2" ]; then
+	echo "Target directory location required as paramter 2."
+	exit -1
+fi
+
+if [ ! -d "$1" ];then
+	echo "Parameter 1 does not specify a directory."
+	exit -1
+fi
+
+if [ ! -d "$2" ];then
+	echo "Parameter 2 does not specify a directory."
+	exit -1
+fi
+
 # Where the master folder with the zips from mycourses lies
-SOURCEDIR=/Users/schieder/Desktop/finals
+SOURCEDIR=$1
 
 # Where the cleaned data shall be stored
-TARGETDIR=/Users/schieder/Desktop/clean-finals
+TARGETDIR=$2
 
 # Remove target dir if already present
 if [ -d "$TARGETDIR" ]; then
