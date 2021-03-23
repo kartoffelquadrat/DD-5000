@@ -49,7 +49,7 @@ public class CollisionDetector {
 
     /**
      * Helper method to turn the collision map into a string representation, one ecore identifier per line. Lists all
-     * studends indexed for that ecore identfier. Automatically omits entries with less than two entries.
+     * students indexed for that ecore identifier. Automatically omits entries with less than two entries.
      *
      * @param collisionMap as the map to be consumed.
      * @return a string representation of the input collision map.

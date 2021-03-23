@@ -17,8 +17,14 @@ public class StudentDirectoryLocator {
 
     private static Logger logger = LogManager.getLogger(HeadlessLauncher.class);
 
-    public static Map<String, File> getSubmissionDirectories(File submissionBaseDir)
-    {
+    /**
+     * Helper method to locate individual submission folders within the general submission master folder.
+     *
+     * @param submissionBaseDir as the master directory with all individual submissions contained.
+     * @return an indexed Map, where every entry lists the identity of a submission author and the corresponding
+     * directory location on disk.
+     */
+    public static Map<String, File> getSubmissionDirectories(File submissionBaseDir) {
         // result map preparation
         Map studentSubmissions = new LinkedHashMap<String, File>();
 
@@ -26,12 +32,11 @@ public class StudentDirectoryLocator {
         File[] directories = submissionBaseDir.listFiles(File::isDirectory);
 
         // Index subdirectories by student name
-        for(int i = 0; i < directories.length; i++)
-        {
+        for (int i = 0; i < directories.length; i++) {
             studentSubmissions.put(directories[i].getName(), directories[i]);
         }
 
-        logger.info("Indexed "+directories.length + " student folders by name.");
+        logger.info("Indexed " + directories.length + " student folders by name.");
         return studentSubmissions;
     }
 }

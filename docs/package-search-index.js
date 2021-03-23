@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"eu.kartoffelquadrat.duplicatedetector"},{"l":"eu.kartoffelquadrat.duplicatedetector.analysis"},{"l":"eu.kartoffelquadrat.duplicatedetector.io"}]

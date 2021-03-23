@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Command line launcher for the Duplicate Detector 5000.
+ * Command line launcher for the Duplicate Detector 5000. (DD-5000)
  *
  * @author Maximilian Schiedermeier
  */
@@ -21,6 +21,10 @@ public class HeadlessLauncher {
     private static File templateFolder;
     private static File submissionFolder;
 
+    /**
+     * Main entry point for the headless (console) launcher of the DD-5000.
+     * @param args
+     */
     public static void main(String[] args) {
 
         // Print welcome message
