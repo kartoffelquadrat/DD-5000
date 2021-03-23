@@ -71,6 +71,8 @@ This section provides a general overview on the duplicate detection algorithm, a
  3. Iterate over the map and create another ```Map<String, Set<String>>``` where the *key* equals the ecore identifier and each *value* is a ```Set``` of all author identifiers using that ecore identifier.
  4. Print a list of all ecore identifiers (and ```Set``` content) where the set size is greater 1. Any of these occurrences suggests plagiarism.
 
+ > **Note**: For further implementation details, consult the [JavaDoc](https://kartoffelquadrat.github.io/DuplicateDetector5000/eu/kartoffelquadrat/duplicatedetector/package-summary.html).
+
 ## Contact / Pull Requests
 
  * Author: Maximilian Schiedermeier ![email](email.png)
