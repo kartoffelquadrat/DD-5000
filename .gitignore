@@ -10,6 +10,8 @@ analyzer/target
 analyzer/*.iml
 
 # User-specific stuff
+.idea/*
+.idea/workspace.xml
 analyzer/.idea
 analyzer/.idea/*
 analyzer/.idea/**/workspace.xml
